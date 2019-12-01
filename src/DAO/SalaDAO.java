@@ -5,33 +5,30 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import model.Sessao;
+import model.Sala;
 
-public class SessaoDAO {
+public class SalaDAO {
 	private Connection conexao;
 
-	public SessaoDAO() {
+	public SalaDAO() {
 		Conexao con = new Conexao();
 		this.conexao = con.getConexao();
 	}
 
-	//MÉTODO PARA ADICIONAR NOVO Sessao
-	public void adicionar(Sessao Sessao) {
+	//MÉTODO PARA ADICIONAR NOVO Sala
+	public void adicionar(Sala Sala) {
 
-		String sql = "insert into Sessaos " +
-				"(preco,horario,data,nome_filme,numSala)" +
-				" values (?,?,?,?,?)";
+		String sql = "insert into Salas " +
+				"(numSala,qtdCadeira)" +
+				" values (?,?)";
 
 		try {
 			// prepared statement para inserção
 			PreparedStatement stmt = conexao.prepareStatement(sql);
 
 			// seta os valoresw
-			stmt.setFloat(1,Sessao.getPreco());
-			stmt.setString(2,Sessao.getHorario());
-			stmt.setString(3,Sessao.getData());
-			stmt.setString(4,Sessao.getNome_filme());
-			stmt.setString(5,Sessao.getNumSala());
+			stmt.setInt(1,Sala.getNumSala());
+			stmt.setInt(2,Sala.getQtdCadeira());
 
 			// executa
 			stmt.execute();
@@ -41,20 +38,17 @@ public class SessaoDAO {
 		}
 	}
 
-	//MÉTODO PARA ALTERAR Sessao
-	public void altera(Sessao Sessao) {
-		System.out.println("ID: "+Sessao.getIdSessao());
+	//MÉTODO PARA ALTERAR Sala
+	public void altera(Sala Sala) {
+		System.out.println("ID: "+Sala.getIdSala());
 
-		String sql = "update Sessaos set preco=? horario=?, data=?, nome_filme=?, numSala=? " +
+		String sql = "update Salas set numSala=?, qtdCadeira=? " +
 				"where id=?";
 		try {
 			PreparedStatement stmt = conexao.prepareStatement(sql);
-			stmt.setFloat(1,Sessao.getPreco());
-			stmt.setString(2,Sessao.getHorario());
-			stmt.setString(3,Sessao.getData());
-			stmt.setString(4,Sessao.getNome_filme());
-			stmt.setString(5,Sessao.getNumSala());
-			stmt.setInt(6, Sessao.getIdSessao());
+			stmt.setInt(1,Sala.getNumSala());
+			stmt.setInt(2,Sala.getQtdCadeira());
+			stmt.setInt(3, Sala.getIdSala());
 
 			System.out.println(stmt);
 
@@ -66,11 +60,11 @@ public class SessaoDAO {
 	}
 
 	//MÉTODO PARA EXCLUIR
-	public void remove(Sessao Sessao) {
+	public void remove(Sala Sala) {
 		try {
 			PreparedStatement stmt = conexao.prepareStatement("delete " +
-					"from Sessaos where id=?");
-			stmt.setInt(1, Sessao.getIdSessao());
+					"from Salas where id=?");
+			stmt.setInt(1, Sala.getIdSala());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -80,15 +74,15 @@ public class SessaoDAO {
 
 	//MÉTODO PARA EXIBIR TODOS
 	public void consultarTodos() {
-		String sql = "select * from Sessaos";
+		String sql = "select * from Salas";
 
 		try {
 			PreparedStatement stmt = conexao.prepareStatement(sql);
 			ResultSet resultado = stmt.executeQuery(); //executa uma consulta
 			while(resultado.next()) {
-				System.out.println(resultado.getInt("idSessao")
-						+" "+resultado.getString("horario")
-						+" - "+resultado.getString("data"));
+				System.out.println(resultado.getInt("id")
+						+" "+resultado.getString("capacidade")
+						+" - "+resultado.getString("localizacao"));
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
@@ -99,7 +93,7 @@ public class SessaoDAO {
 	//MÉTODO PARA BUSCAR POR NOME
 	public ResultSet buscarPorNome(String nome) {
 
-		String sql = "select * from Sessaos where data like ?";
+		String sql = "select * from Salas where nome like ?";
 
 		try {
 			PreparedStatement stmt = conexao.prepareStatement(sql);
@@ -137,30 +131,5 @@ public class SessaoDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	//MÉTODO PARA CRIAR TABELA
-	public void criarTabelaSessaos() {
-		String sql = "create table if not exists Sessaos(" + 
-				"        idSessao SERIAL NOT NULL," + 
-				"        horario VARCHAR(255)," +
-				"        data VARCHAR(255)," +
-				"        primary key (idSessao)" + 
-				"    );";
-
-		try {
-			// prepared statement para inserção
-			PreparedStatement stmt = conexao.prepareStatement(sql);
-
-
-			// executa
-			stmt.execute();
-			stmt.close();
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-
-
 	}
 }

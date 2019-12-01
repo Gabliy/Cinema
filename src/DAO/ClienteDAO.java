@@ -46,7 +46,7 @@ public class ClienteDAO {
 		System.out.println("ID: "+Cliente.getIdCliente());
 
 		String sql = "update Clientes set cpf=?, nome=?, endereco=?, telefone=? " +
-				"where id=?";
+				"where idCliente=?";
 		try {
 			PreparedStatement stmt = conexao.prepareStatement(sql);
 			stmt.setString(1, Cliente.getCpf());

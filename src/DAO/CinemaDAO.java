@@ -45,7 +45,7 @@ public class CinemaDAO {
 		System.out.println("ID: "+Cinema.getId());
 
 		String sql = "update Cinemas set capacidade=?, localizacao=? " +
-				"where id=?";
+				"where idCinema=?";
 		try {
 			PreparedStatement stmt = conexao.prepareStatement(sql);
 			stmt.setInt(1, Cinema.getCapacidade());
@@ -65,7 +65,7 @@ public class CinemaDAO {
 	public void remove(Cinema Cinema) {
 		try {
 			PreparedStatement stmt = conexao.prepareStatement("delete " +
-					"from Cinemas where id=?");
+					"from Cinemas where idCinema=?");
 			stmt.setInt(1, Cinema.getId());
 			stmt.execute();
 			stmt.close();
@@ -82,7 +82,7 @@ public class CinemaDAO {
 			PreparedStatement stmt = conexao.prepareStatement(sql);
 			ResultSet resultado = stmt.executeQuery(); //executa uma consulta
 			while(resultado.next()) {
-				System.out.println(resultado.getInt("id")
+				System.out.println(resultado.getInt("idCinema")
 						+" "+resultado.getString("capacidade")
 						+" - "+resultado.getString("localizacao"));
 			}
@@ -135,28 +135,4 @@ public class CinemaDAO {
 		}
 	}
 
-	//MÉTODO PARA CRIAR TABELA
-	public void criarTabelaCinemas() {
-		String sql = "create table if not exists Cinemas(" + 
-				"        id SERIAL NOT NULL," + 
-				"        capacidade INTEGER," + 
-				"        localizacao VARCHAR(255)," + 
-				"        primary key (id)" + 
-				"    );";
-
-		try {
-			// prepared statement para inserção
-			PreparedStatement stmt = conexao.prepareStatement(sql);
-
-
-			// executa
-			stmt.execute();
-			stmt.close();
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-
-
-	}
 }

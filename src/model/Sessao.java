@@ -2,23 +2,34 @@ package model;
 
 
 public class Sessao {
-	int idSessao;
-	String horario,data;
-	
-	public Sessao(String horario, String data) {
+	private int idSessao;
+	private float preco;
+	private String horario,data,nome_filme,numSala;
+	public Sessao(float preco, String horario, String data, String nome_filme, String numSala) {
 		super();
+		this.preco = preco;
 		this.horario = horario;
 		this.data = data;
+		this.nome_filme = nome_filme;
+		this.numSala = numSala;
 	}
-	
 	public int getIdSessao() {
 		return idSessao;
+	}
+	public float getPreco() {
+		return preco;
 	}
 	public String getHorario() {
 		return horario;
 	}
 	public String getData() {
 		return data;
+	}
+	public String getNome_filme() {
+		return nome_filme;
+	}
+	public String getNumSala() {
+		return numSala;
 	}
 	
 	

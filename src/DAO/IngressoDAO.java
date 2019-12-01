@@ -5,33 +5,37 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import model.Sessao;
+import model.Ingresso;
 
-public class SessaoDAO {
+public class IngressoDAO {
 	private Connection conexao;
 
-	public SessaoDAO() {
+	public IngressoDAO() {
 		Conexao con = new Conexao();
 		this.conexao = con.getConexao();
 	}
 
-	//MÉTODO PARA ADICIONAR NOVO Sessao
-	public void adicionar(Sessao Sessao) {
+	//MÉTODO PARA ADICIONAR NOVO Ingresso
+	public void adicionar(Ingresso Ingresso) {
 
-		String sql = "insert into Sessaos " +
-				"(preco,horario,data,nome_filme,numSala)" +
-				" values (?,?,?,?,?)";
+		String sql = "insert into Ingressos " +
+				"(preco, estudante, colfil, filme, sessao, ingressoData, compraData, numSala, qtdIngresso)" +
+				" values (?,?,?,?,?,?,?,?,?)";
 
 		try {
 			// prepared statement para inserção
 			PreparedStatement stmt = conexao.prepareStatement(sql);
 
 			// seta os valoresw
-			stmt.setFloat(1,Sessao.getPreco());
-			stmt.setString(2,Sessao.getHorario());
-			stmt.setString(3,Sessao.getData());
-			stmt.setString(4,Sessao.getNome_filme());
-			stmt.setString(5,Sessao.getNumSala());
+			stmt.setFloat(1,Ingresso.getPreco());
+			stmt.setBoolean(2,Ingresso.isEstudante());
+			stmt.setString(3,Ingresso.getColfil());
+			stmt.setString(4,Ingresso.getFilme());
+			stmt.setString(5,Ingresso.getSessao());
+			stmt.setString(6,Ingresso.getIngressoData());
+			stmt.setString(7,Ingresso.getCompraData());
+			stmt.setInt(8,Ingresso.getNumSala());
+			stmt.setInt(9,Ingresso.getQtdIngresso());
 
 			// executa
 			stmt.execute();
@@ -41,20 +45,22 @@ public class SessaoDAO {
 		}
 	}
 
-	//MÉTODO PARA ALTERAR Sessao
-	public void altera(Sessao Sessao) {
-		System.out.println("ID: "+Sessao.getIdSessao());
+	//MÉTODO PARA ALTERAR Ingresso
+	public void altera(Ingresso Ingresso) {
+		System.out.println("ID: "+Ingresso.getIdIngresso());
 
-		String sql = "update Sessaos set preco=? horario=?, data=?, nome_filme=?, numSala=? " +
-				"where id=?";
+		String sql = "update Ingressos set preco=?, estudante=?, colfil=?, filme=?, sessao=?, ingressoData=?, compraData=? " +
+				"where idIngresso=?";
 		try {
 			PreparedStatement stmt = conexao.prepareStatement(sql);
-			stmt.setFloat(1,Sessao.getPreco());
-			stmt.setString(2,Sessao.getHorario());
-			stmt.setString(3,Sessao.getData());
-			stmt.setString(4,Sessao.getNome_filme());
-			stmt.setString(5,Sessao.getNumSala());
-			stmt.setInt(6, Sessao.getIdSessao());
+			stmt.setFloat(1,Ingresso.getPreco());
+			stmt.setBoolean(2,Ingresso.isEstudante());
+			stmt.setString(3,Ingresso.getColfil());
+			stmt.setString(4,Ingresso.getFilme());
+			stmt.setString(5,Ingresso.getSessao());
+			stmt.setString(6,Ingresso.getIngressoData());
+			stmt.setString(7,Ingresso.getCompraData());
+			stmt.setInt(8, Ingresso.getIdIngresso());
 
 			System.out.println(stmt);
 
@@ -66,11 +72,11 @@ public class SessaoDAO {
 	}
 
 	//MÉTODO PARA EXCLUIR
-	public void remove(Sessao Sessao) {
+	public void remove(Ingresso Ingresso) {
 		try {
 			PreparedStatement stmt = conexao.prepareStatement("delete " +
-					"from Sessaos where id=?");
-			stmt.setInt(1, Sessao.getIdSessao());
+					"from Ingressos where idIngresso=?");
+			stmt.setInt(1, Ingresso.getIdIngresso());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -80,15 +86,15 @@ public class SessaoDAO {
 
 	//MÉTODO PARA EXIBIR TODOS
 	public void consultarTodos() {
-		String sql = "select * from Sessaos";
+		String sql = "select * from Ingressos";
 
 		try {
 			PreparedStatement stmt = conexao.prepareStatement(sql);
 			ResultSet resultado = stmt.executeQuery(); //executa uma consulta
 			while(resultado.next()) {
-				System.out.println(resultado.getInt("idSessao")
-						+" "+resultado.getString("horario")
-						+" - "+resultado.getString("data"));
+				System.out.println(resultado.getInt("id")
+						+" "+resultado.getString("capacidade")
+						+" - "+resultado.getString("localizacao"));
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
@@ -99,7 +105,7 @@ public class SessaoDAO {
 	//MÉTODO PARA BUSCAR POR NOME
 	public ResultSet buscarPorNome(String nome) {
 
-		String sql = "select * from Sessaos where data like ?";
+		String sql = "select * from Ingressos where nome like ?";
 
 		try {
 			PreparedStatement stmt = conexao.prepareStatement(sql);
@@ -137,30 +143,5 @@ public class SessaoDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	//MÉTODO PARA CRIAR TABELA
-	public void criarTabelaSessaos() {
-		String sql = "create table if not exists Sessaos(" + 
-				"        idSessao SERIAL NOT NULL," + 
-				"        horario VARCHAR(255)," +
-				"        data VARCHAR(255)," +
-				"        primary key (idSessao)" + 
-				"    );";
-
-		try {
-			// prepared statement para inserção
-			PreparedStatement stmt = conexao.prepareStatement(sql);
-
-
-			// executa
-			stmt.execute();
-			stmt.close();
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-
-
 	}
 }

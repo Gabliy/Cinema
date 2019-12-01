@@ -1,10 +1,11 @@
 package model;
 
 public class Filme {
-	int idFilme;
-	String titulo,duracao;
-	public Filme(String titulo, String duracao) {
+	private int idFilme;
+	private String titulo,duracao,ref;
+	public Filme(String ref, String titulo, String duracao) {
 		super();
+		this.ref = ref;
 		this.titulo = titulo;
 		this.duracao = duracao;
 	}
@@ -25,6 +26,9 @@ public class Filme {
 	}
 	public void setDuracao(String duracao) {
 		this.duracao = duracao;
+	}
+	public String getRef() {
+		return ref;
 	}
 	
 }

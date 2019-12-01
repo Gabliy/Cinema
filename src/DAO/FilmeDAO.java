@@ -21,17 +21,17 @@ public class FilmeDAO {
 	public void adicionar(Filme Filme) {
 
 		String sql = "insert into Filmes " +
-				"(titulo,duracao)" +
-				" values (?,?)";
+				"(refe, titulo, duracao)" +
+				" values (?,?,?)";
 
 		try {
 			// prepared statement para inserção
 			PreparedStatement stmt = conexao.prepareStatement(sql);
 
 			// seta os valoresw
-			stmt.setString(1,Filme.getTitulo());
-			stmt.setString(2,Filme.getDuracao());
-
+			stmt.setString(1,Filme.getRef());
+			stmt.setString(2,Filme.getTitulo());
+			stmt.setString(3,Filme.getDuracao());
 
 			// executa
 			stmt.execute();

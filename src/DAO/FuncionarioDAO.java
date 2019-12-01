@@ -43,16 +43,16 @@ public class FuncionarioDAO {
     
     //MÉTODO PARA ALTERAR Funcionario
     public void altera(Funcionario Funcionario) {
-    	System.out.println("ID: "+Funcionario.getIdMat());
+    	System.out.println("ID: "+Funcionario.getIdFunc());
     	
         String sql = "update Funcionarios set nome=?, endereco=?, telefone=? " +
-                "where id=?";
+                "where idFunc=?";
         try {
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setString(1, Funcionario.getNome());
             stmt.setString(2, Funcionario.getEndereco());
             stmt.setString(3, Funcionario.getTelefone());
-            stmt.setInt(4, Funcionario.getIdMat());
+            stmt.setInt(4, Funcionario.getIdFunc());
             
             System.out.println(stmt);
             
@@ -67,8 +67,8 @@ public class FuncionarioDAO {
     public void remove(Funcionario Funcionario) {
         try {
             PreparedStatement stmt = conexao.prepareStatement("delete " +
-                    "from Funcionarios where id=?");
-            stmt.setInt(1, Funcionario.getIdMat());
+                    "from Funcionarios where idFunc=?");
+            stmt.setInt(1, Funcionario.getIdFunc());
             stmt.execute();
             stmt.close();
         } catch (SQLException e) {
@@ -138,29 +138,4 @@ public class FuncionarioDAO {
 		}
     }
     
-    //MÉTODO PARA CRIAR TABELA
-    public void criarTabelaFuncionarios() {
-		String sql = "create table if not exists Funcionarios(" + 
-				"        id SERIAL NOT NULL," + 
-				"        nome VARCHAR(255)," + 
-				"        endereco VARCHAR(255)," + 
-				"        telefone VARCHAR(255)," + 
-				"        primary key (id)" + 
-				"    );";
-		
-		try {
-            // prepared statement para inserção
-            PreparedStatement stmt = conexao.prepareStatement(sql);
-
-          
-            // executa
-            stmt.execute();
-            stmt.close();
-            
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-		
-		
-	}
 }

@@ -1,0 +1,80 @@
+CREATE DATABASE CinemasDB;
+CREATE TABLE Cinema(
+  idCinema SERIAL PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL,
+  qntdSala INTEGER NOT NULL
+  );
+CREATE TABLE Sala(
+  idSala SERIAL PRIMARY KEY,
+  numSala INTEGER NOT NULL,
+  qntdCadeira INTEGER NOT NULL,
+  idCinema_fk SERIAL,
+  FOREIGN KEY (idCinema_fk) REFERENCES Cinema(idCinema)
+  );
+CREATE TABLE Filme(
+  idFilme SERIAL PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL,
+  duracaoMin INTEGER NOT NULL
+  );
+CREATE TABLE Sessao(
+  idSessao SERIAL PRIMARY KEY,
+  preco FLOAT NOT NULL,
+  normaL BOOLEAN NOT NULL,
+  horas INTEGER NOT NULL,
+  minuros INTEGER NOT NULL,
+  nome_filme VARCHAR(255) NOT NULL,
+  numSala INTEGER NOT NULL,
+  ingressoDisp INTEGER NOT NULL,
+  coluna INTEGER NOT NULL,
+  fileira INTEGER NOT NULL,
+  dias INTEGER[] NOT NULL,
+  mes INTEGER NOT NULL,
+  idFilme_fk SERIAL,
+  idSala_fk INTEGER,
+  FOREIGN KEY (idSala_fk) REFERENCES Sala(idSala),
+  FOREIGN KEY (idFilme_fk) REFERENCES Filme(idFilme)
+  );
+CREATE TABLE Funcionario(
+  idFuncionario SERIAL PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL,
+  endereco VARCHAR(255) NOT NULL,
+  telefone VARCHAR(255) NOT NULL,
+  idCinema_fk SERIAL,
+  FOREIGN KEY (idCinema_fk) REFERENCES Cinema(idCinema)
+  );
+CREATE TABLE Cliente(
+  idCliente SERIAL PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL,
+  endereco VARCHAR(255) NOT NULL,
+  telefone VARCHAR(255) NOT NULL,
+  estudante BOOLEAN NOT NULL
+  );
+CREATE TABLE Ingresso(
+  idIngresso SERIAL PRIMARY KEY,
+  preco FLOAT NOT NULL,
+  tipo BOOLEAN NOT NULL,
+  coluna INTEGER NOT NULL,
+  fileira VARCHAR(1) NOT NULL,
+  filme VARCHAR(255) NOT NULL,
+  sessao VARCHAR(255) NOT NULL,
+  ingressoData DATE NOT NULL,
+  compraData DATE NOT NULL,
+  idCliente_fk SERIAL,
+  idFuncionario_fk SERIAL,
+  FOREIGN KEY (idCliente_fk) REFERENCES Cliente(idCliEnte),
+  FOREIGN KEY (idFuncionario_fk) REFERENCES Funcionario(idFuncionario)
+  );
+CREATE TABLE Venda(
+  idVenda SERIAL PRIMARY KEY,
+  preco FLOAT NOT NULL,
+  tipo BOOLEAN NOT NULL,
+  ingressoData DATE NOT NULL,
+  compraData DATE NOT NULL,
+  idCliente_fk SERIAL,
+  idFuncionario_fk SERIAL,
+  idIngresso_fk SERIAL,
+  FOREIGN KEY (idCliente_fk) REFERENCES Cliente(idCliente),
+  FOREIGN KEY (idFuncionario_fk) REFERENCES Funcionario(idFuncionario),
+  FOREIGN KEY (idIngresso_fk) REFERENCES Ingresso(idIngresso)
+  );
+  

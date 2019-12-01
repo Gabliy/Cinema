@@ -5,33 +5,33 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import model.Sessao;
+import model.Venda;
 
-public class SessaoDAO {
+public class VendaDAO {
 	private Connection conexao;
 
-	public SessaoDAO() {
+	public VendaDAO() {
 		Conexao con = new Conexao();
 		this.conexao = con.getConexao();
 	}
 
-	//MÉTODO PARA ADICIONAR NOVO Sessao
-	public void adicionar(Sessao Sessao) {
+	//MÉTODO PARA ADICIONAR NOVO Venda
+	public void adicionar(Venda Venda) {
 
-		String sql = "insert into Sessaos " +
-				"(preco,horario,data,nome_filme,numSala)" +
-				" values (?,?,?,?,?)";
+		String sql = "insert into Vendas " +
+				"(preco, estudante, ingressoData, compraData)" +
+				" values (?,?,?,?)";
 
 		try {
 			// prepared statement para inserção
 			PreparedStatement stmt = conexao.prepareStatement(sql);
 
 			// seta os valoresw
-			stmt.setFloat(1,Sessao.getPreco());
-			stmt.setString(2,Sessao.getHorario());
-			stmt.setString(3,Sessao.getData());
-			stmt.setString(4,Sessao.getNome_filme());
-			stmt.setString(5,Sessao.getNumSala());
+			stmt.setFloat(1,Venda.getPreco());
+			stmt.setBoolean(2,Venda.isEstudante());
+			stmt.setString(3,Venda.getIngressoData());
+			stmt.setString(4,Venda.getCompraData());
+			
 
 			// executa
 			stmt.execute();
@@ -41,20 +41,19 @@ public class SessaoDAO {
 		}
 	}
 
-	//MÉTODO PARA ALTERAR Sessao
-	public void altera(Sessao Sessao) {
-		System.out.println("ID: "+Sessao.getIdSessao());
+	//MÉTODO PARA ALTERAR Venda
+	public void altera(Venda Venda) {
+		System.out.println("ID: "+Venda.getIdVenda());
 
-		String sql = "update Sessaos set preco=? horario=?, data=?, nome_filme=?, numSala=? " +
-				"where id=?";
+		String sql = "update Vendas set preco=?, estudante=?, colfil=?, filme=?, sessao=?, VendaData=?, compraData=? " +
+				"where idVenda=?";
 		try {
 			PreparedStatement stmt = conexao.prepareStatement(sql);
-			stmt.setFloat(1,Sessao.getPreco());
-			stmt.setString(2,Sessao.getHorario());
-			stmt.setString(3,Sessao.getData());
-			stmt.setString(4,Sessao.getNome_filme());
-			stmt.setString(5,Sessao.getNumSala());
-			stmt.setInt(6, Sessao.getIdSessao());
+			stmt.setFloat(1,Venda.getPreco());
+			stmt.setBoolean(2,Venda.isEstudante());
+			stmt.setString(3,Venda.getIngressoData());
+			stmt.setString(4,Venda.getCompraData());
+			stmt.setInt(5, Venda.getIdVenda());
 
 			System.out.println(stmt);
 
@@ -66,11 +65,11 @@ public class SessaoDAO {
 	}
 
 	//MÉTODO PARA EXCLUIR
-	public void remove(Sessao Sessao) {
+	public void remove(Venda Venda) {
 		try {
 			PreparedStatement stmt = conexao.prepareStatement("delete " +
-					"from Sessaos where id=?");
-			stmt.setInt(1, Sessao.getIdSessao());
+					"from Vendas where idVenda=?");
+			stmt.setInt(1, Venda.getIdVenda());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -80,15 +79,15 @@ public class SessaoDAO {
 
 	//MÉTODO PARA EXIBIR TODOS
 	public void consultarTodos() {
-		String sql = "select * from Sessaos";
+		String sql = "select * from Vendas";
 
 		try {
 			PreparedStatement stmt = conexao.prepareStatement(sql);
 			ResultSet resultado = stmt.executeQuery(); //executa uma consulta
 			while(resultado.next()) {
-				System.out.println(resultado.getInt("idSessao")
-						+" "+resultado.getString("horario")
-						+" - "+resultado.getString("data"));
+				System.out.println(resultado.getInt("id")
+						+" "+resultado.getString("capacidade")
+						+" - "+resultado.getString("localizacao"));
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
@@ -99,7 +98,7 @@ public class SessaoDAO {
 	//MÉTODO PARA BUSCAR POR NOME
 	public ResultSet buscarPorNome(String nome) {
 
-		String sql = "select * from Sessaos where data like ?";
+		String sql = "select * from Vendas where nome like ?";
 
 		try {
 			PreparedStatement stmt = conexao.prepareStatement(sql);
@@ -137,30 +136,5 @@ public class SessaoDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	//MÉTODO PARA CRIAR TABELA
-	public void criarTabelaSessaos() {
-		String sql = "create table if not exists Sessaos(" + 
-				"        idSessao SERIAL NOT NULL," + 
-				"        horario VARCHAR(255)," +
-				"        data VARCHAR(255)," +
-				"        primary key (idSessao)" + 
-				"    );";
-
-		try {
-			// prepared statement para inserção
-			PreparedStatement stmt = conexao.prepareStatement(sql);
-
-
-			// executa
-			stmt.execute();
-			stmt.close();
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-
-
 	}
 }

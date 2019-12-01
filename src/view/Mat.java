@@ -67,7 +67,6 @@ public class Mat extends JFrame {
 		JButton btnNewButton = new JButton("OK");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				func.criarTabelaFuncionarios();
 				String nome = textField.getText();
 				boolean state = false;
 				String sql = "select * from Funcionarios where nome like ?";
@@ -87,7 +86,7 @@ public class Mat extends JFrame {
 				}
 				if(state==true) {
 					JOptionPane.showMessageDialog(null, "O nome foi encontrado!!!");
-					Index in = new Index();
+					FilmeView in = new FilmeView();
 					in.setVisible(true);
 					in.setLocationRelativeTo(null);
 					dispose();
@@ -112,7 +111,7 @@ public class Mat extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 
-		JLabel lblMatrcula = new JLabel("Matr\u00EDcula:");
+		JLabel lblMatrcula = new JLabel("Matrícula:");
 		lblMatrcula.setBounds(10, 11, 69, 14);
 		contentPane.add(lblMatrcula);
 	}
