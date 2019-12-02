@@ -1,13 +1,15 @@
 package model;
 
 public class Ingresso {
-	private int IdIngresso,qtdIngresso, numSala;
+	private int IdIngresso,qtdIngresso, numSala,idCliente_fk;
 	private float preco;
 	private boolean estudante;
-	private String colfil,filme,sessao,ingressoData,compraData;
+	private String colfil,filme,sessao,ingressoData,compraData,pagamento;
 	public Ingresso(float preco, boolean estudante, String colfil, String filme, String sessao, String ingressoData,
-			String compraData ,int numSala,int qtdIngresso) {
+			String compraData ,int numSala,int qtdIngresso, int idCliente_fk, String pagamento) {
 		super();
+		this.pagamento = pagamento;
+		this.idCliente_fk = idCliente_fk;
 		this.numSala = numSala;
 		this.qtdIngresso = qtdIngresso;
 		this.preco = preco;
@@ -47,6 +49,12 @@ public class Ingresso {
 	}
 	public int getNumSala() {
 		return numSala;
+	}
+	public int getIdCliente_fk() {
+		return idCliente_fk;
+	}
+	public String getPagamento() {
+		return pagamento;
 	}	
 	
 }

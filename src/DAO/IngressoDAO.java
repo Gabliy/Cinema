@@ -19,8 +19,8 @@ public class IngressoDAO {
 	public void adicionar(Ingresso Ingresso) {
 
 		String sql = "insert into Ingressos " +
-				"(preco, estudante, colfil, filme, sessao, ingressoData, compraData, numSala, qtdIngresso)" +
-				" values (?,?,?,?,?,?,?,?,?)";
+				"(preco, estudante, colfil, filme, sessao, ingressoData, compraData, numSala, qtdIngresso, idCliente_fk, pagamento)" +
+				" values (?,?,?,?,?,?,?,?,?,?,?)";
 
 		try {
 			// prepared statement para inserção
@@ -36,6 +36,8 @@ public class IngressoDAO {
 			stmt.setString(7,Ingresso.getCompraData());
 			stmt.setInt(8,Ingresso.getNumSala());
 			stmt.setInt(9,Ingresso.getQtdIngresso());
+			stmt.setInt(10, Ingresso.getIdCliente_fk());
+			stmt.setString(11, Ingresso.getPagamento());
 
 			// executa
 			stmt.execute();

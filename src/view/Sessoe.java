@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JButton;
+import javax.swing.JRadioButton;
 
 public class Sessoe extends JFrame {
 
@@ -38,6 +39,7 @@ public class Sessoe extends JFrame {
 			public void run() {
 				try {
 					Sessoe frame = new Sessoe("",0,"","");
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,7 +55,7 @@ public class Sessoe extends JFrame {
 		Conexao con = new Conexao();
 		this.conexao = con.getConexao();
 		setTitle(nomeSes+" - Sala "+sala);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 771, 540);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -89,7 +91,19 @@ public class Sessoe extends JFrame {
 		
 		String sql = "select * from sessaos where horario ='"+nomeSes+"' and numSala ="+sala;
 		
+		JLabel lblEstudante = new JLabel("Estudante: ");
+		lblEstudante.setFont(new Font("Arial", Font.BOLD, 15));
+		lblEstudante.setBounds(49, 401, 97, 16);
+		contentPane.add(lblEstudante);
 		
+		JRadioButton rdbtnSim = new JRadioButton("Sim");
+		rdbtnSim.setBounds(59, 429, 58, 25);
+		contentPane.add(rdbtnSim);
+		
+		JRadioButton rdbtnNo = new JRadioButton("Não");
+		rdbtnNo.setBounds(133, 429, 58, 25);
+		rdbtnNo.setSelected(true);
+		contentPane.add(rdbtnNo);
 		
 		JButton btnNewButton = new JButton("Gerar ingresso");
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 19));
@@ -113,10 +127,18 @@ public class Sessoe extends JFrame {
 						float preco = 0; 
 						PreparedStatement stmt = conexao.prepareStatement(sql);
 						ResultSet resultado = stmt.executeQuery();
+						float precoM;
+						boolean estudante = false;
 						while(resultado.next()) {
 							preco = resultado.getFloat("preco");
 						}
-						Vender ven = new Vender(resu,cont,preco,nomeSes,sala,data,nomeFilme);
+						if(rdbtnSim.isSelected()) {
+							precoM =(preco/2)*cont;
+							estudante = true;
+						}else {
+							precoM = preco*cont;
+						}
+						Vender ven = new Vender(resu,cont,precoM,nomeSes,sala,data,nomeFilme,estudante);
 						ven.setVisible(true);
 						dispose();
 					}else {
@@ -138,6 +160,8 @@ public class Sessoe extends JFrame {
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 18));
 		lblNewLabel.setBounds(324, 433, 97, 37);
 		contentPane.add(lblNewLabel);
+		
+		
 		
 	}
 }

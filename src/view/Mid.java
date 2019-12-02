@@ -37,6 +37,7 @@ public class Mid extends JFrame {
 			public void run() {
 				try {
 					Mid frame = new Mid("","","");
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

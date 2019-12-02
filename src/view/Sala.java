@@ -19,6 +19,7 @@ public class Sala extends JFrame {
 			public void run() {
 				try {
 					Sala frame = new Sala();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
