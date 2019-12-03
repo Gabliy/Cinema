@@ -29,6 +29,7 @@ import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import java.awt.Color;
 
 public class Vender extends JFrame {
 
@@ -70,6 +71,7 @@ public class Vender extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 647, 480);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(245, 222, 179));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -94,7 +96,7 @@ public class Vender extends JFrame {
 		lblNewLabel_2.setBounds(12, 113, 340, 16);
 		contentPane.add(lblNewLabel_2);
 
-		JLabel lblNewLabel_3 = new JLabel("Preço: "+preco);
+		JLabel lblNewLabel_3 = new JLabel("Preço: R$"+preco);
 		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 15));
 		lblNewLabel_3.setBounds(12, 142, 340, 16);
 		contentPane.add(lblNewLabel_3);
@@ -121,7 +123,7 @@ public class Vender extends JFrame {
 			contentPane.add(lblNewLabel_6);
 		}
 
-		JLabel lblCliente = new JLabel("Cliente: ");
+		JLabel lblCliente = new JLabel("Cliente*: ");
 		lblCliente.setFont(new Font("Arial", Font.BOLD, 15));
 		lblCliente.setBounds(352, 26, 87, 16);
 		contentPane.add(lblCliente);
@@ -167,16 +169,19 @@ public class Vender extends JFrame {
 		tele.setColumns(10);
 
 		JLabel lblFormaDePagamento = new JLabel("Forma de pagamento: ");
+		lblFormaDePagamento.setFont(new Font("Arial", Font.BOLD, 15));
 		lblFormaDePagamento.setBounds(12, 270, 178, 16);
 		contentPane.add(lblFormaDePagamento);
 
 		JRadioButton rdbtnCartoDeDebito = new JRadioButton("Cartão de débito ou credito");
+		rdbtnCartoDeDebito.setBackground(new Color(245, 222, 179));
 		buttonGroup_1.add(rdbtnCartoDeDebito);
 		rdbtnCartoDeDebito.setBounds(32, 294, 214, 25);
 		rdbtnCartoDeDebito.setSelected(true);
 		contentPane.add(rdbtnCartoDeDebito);
 
 		JRadioButton rdbtnAVista = new JRadioButton("A vista");
+		rdbtnAVista.setBackground(new Color(245, 222, 179));
 		buttonGroup_1.add(rdbtnAVista);
 		rdbtnAVista.setBounds(32, 324, 127, 25);
 		contentPane.add(rdbtnAVista);
@@ -184,8 +189,9 @@ public class Vender extends JFrame {
 
 
 		JButton btnNewButton = new JButton("Confirmar");
-		btnNewButton.setFont(new Font("Arial", Font.BOLD, 15));
-		btnNewButton.setBounds(328, 323, 152, 65);
+		btnNewButton.setBackground(new Color(244, 164, 96));
+		btnNewButton.setFont(new Font("Arial", Font.BOLD, 17));
+		btnNewButton.setBounds(328, 323, 230, 97);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				int opt = JOptionPane.showConfirmDialog(null, "O cliente efetuou o pagamento??");

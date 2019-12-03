@@ -26,6 +26,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.GridLayout;
+import java.awt.Color;
 
 public class Mid extends JFrame {
 
@@ -60,12 +61,14 @@ public class Mid extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 680, 478);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(245, 222, 179));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(244, 164, 96));
 		panel.setBounds(12, 13, 630, 247);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -106,6 +109,7 @@ public class Mid extends JFrame {
 		JButton[] btnSessao = new JButton[i];
 
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(245, 222, 179));
 		panel_1.setBounds(37, 308, 318, 97);
 		contentPane.add(panel_1);
 		panel_1.setLayout(new GridLayout(1, i, 10, 10));
@@ -116,6 +120,7 @@ public class Mid extends JFrame {
 				lblSesses.setFont(new Font("Arial", Font.BOLD, 15));
 				
 				JButton btnNewButton = new JButton("Adicionar Sessão");
+				btnNewButton.setBackground(new Color(244, 164, 96));
 				btnNewButton.setFont(new Font("Arial", Font.BOLD, 16));
 				btnNewButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent ae) {
@@ -147,6 +152,7 @@ public class Mid extends JFrame {
 					String data = resultado.getString("data");
 					btnSessao[c] = new JButton(resultado.getString("horario"));
 					btnSessao[c].setFont(new Font("Arial", Font.BOLD, 15));
+					btnSessao[c].setBackground(new Color(244, 164, 96));
 					btnSessao[c].addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							Sessoe ses = new Sessoe(nomeSes,sala,data,nomeFilme);

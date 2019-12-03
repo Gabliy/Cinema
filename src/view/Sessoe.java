@@ -25,11 +25,13 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 
 public class Sessoe extends JFrame {
 
 	private JPanel contentPane;
 	private Connection conexao;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
 	 * Launch the application.
@@ -58,18 +60,19 @@ public class Sessoe extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 771, 540);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(245, 222, 179));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(Color.GRAY);
+		panel.setBackground(new Color(244, 164, 96));
 		panel.setBounds(49, 50, 652, 328);
 		contentPane.add(panel);
 		panel.setLayout(new GridLayout(5, 5, 0, 0));
 		
 		JLabel lblEscolhaAsPoltronas = new JLabel("Escolha as poltronas:");
-		lblEscolhaAsPoltronas.setFont(new Font("Arial", Font.BOLD, 15));
+		lblEscolhaAsPoltronas.setFont(new Font("Arial", Font.BOLD, 17));
 		lblEscolhaAsPoltronas.setBounds(49, 13, 211, 16);
 		contentPane.add(lblEscolhaAsPoltronas);
 		
@@ -97,15 +100,20 @@ public class Sessoe extends JFrame {
 		contentPane.add(lblEstudante);
 		
 		JRadioButton rdbtnSim = new JRadioButton("Sim");
+		buttonGroup.add(rdbtnSim);
+		rdbtnSim.setBackground(new Color(245, 222, 179));
 		rdbtnSim.setBounds(59, 429, 58, 25);
 		contentPane.add(rdbtnSim);
 		
 		JRadioButton rdbtnNo = new JRadioButton("Não");
+		buttonGroup.add(rdbtnNo);
+		rdbtnNo.setBackground(new Color(245, 222, 179));
 		rdbtnNo.setBounds(133, 429, 58, 25);
 		rdbtnNo.setSelected(true);
 		contentPane.add(rdbtnNo);
 		
 		JButton btnNewButton = new JButton("Gerar ingresso");
+		btnNewButton.setBackground(new Color(244, 164, 96));
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 19));
 		btnNewButton.setBounds(457, 391, 244, 74);
 		btnNewButton.addActionListener(new ActionListener() {

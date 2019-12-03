@@ -21,6 +21,8 @@ import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
+import java.awt.Font;
+import java.awt.Color;
 
 public class FilmeView extends JFrame {
 
@@ -43,6 +45,7 @@ public class FilmeView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension( 650, 393));
         contentPane = new JPanel();
+        contentPane.setBackground(new Color(245, 222, 179));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         int i = 1;
@@ -103,7 +106,9 @@ public class FilmeView extends JFrame {
         contentPane.add(scroll);
         
         JButton btnAdicionarFilme = new JButton("Adicionar Filme");
-        btnAdicionarFilme.setBounds(18, 287, 126, 41);
+        btnAdicionarFilme.setBackground(new Color(244, 164, 96));
+        btnAdicionarFilme.setFont(new Font("Arial", Font.BOLD, 16));
+        btnAdicionarFilme.setBounds(18, 275, 175, 53);
         btnAdicionarFilme.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent ae) {
         		String url = JOptionPane.showInputDialog(null,"Digite a url(tipo: '/img/nomeDoFilme.jpg') da thumbnail do filme(recomendado baixar a foto e coloca-la no pacote img do projeto)");

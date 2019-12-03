@@ -22,6 +22,9 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class Mat extends JFrame {
 
@@ -55,8 +58,9 @@ public class Mat extends JFrame {
 	public Mat() {
 		setTitle("Login");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 286, 145);
+		setBounds(100, 100, 673, 394);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(210, 180, 140));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -64,7 +68,9 @@ public class Mat extends JFrame {
 		Conexao con = new Conexao();
 		this.conexao = con.getConexao();
 
-		JButton btnNewButton = new JButton("OK");
+		JButton btnNewButton = new JButton("Confirmar");
+		btnNewButton.setBackground(new Color(245, 222, 179));
+		btnNewButton.setFont(new Font("Arial", Font.BOLD, 18));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				String nome = textField.getText();
@@ -104,16 +110,33 @@ public class Mat extends JFrame {
 				}
 			}
 		});
-		btnNewButton.setBounds(88, 70, 89, 23);
+		btnNewButton.setBounds(28, 211, 285, 123);
 		contentPane.add(btnNewButton);
 
 		textField = new JTextField();
-		textField.setBounds(10, 36, 249, 23);
+		textField.setBounds(28, 111, 285, 34);
 		contentPane.add(textField);
 		textField.setColumns(10);
 
 		JLabel lblMatrcula = new JLabel("Matrícula:");
-		lblMatrcula.setBounds(10, 11, 69, 14);
+		lblMatrcula.setFont(new Font("Arial", Font.BOLD, 17));
+		lblMatrcula.setBounds(28, 69, 121, 14);
 		contentPane.add(lblMatrcula);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(188, 143, 143));
+		panel.setBounds(0, 0, 354, 347);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon(Mat.class.getResource("/img/iconCamera.png")));
+		label.setBounds(427, 158, 137, 136);
+		contentPane.add(label);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(427, 30, 137, 115);
+		contentPane.add(lblNewLabel);
+		lblNewLabel.setIcon(new ImageIcon(Mat.class.getResource("/img/iconGlass.png")));
 	}
 }

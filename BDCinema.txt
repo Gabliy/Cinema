@@ -52,6 +52,9 @@ CREATE TABLE Ingressos(
   sessao VARCHAR(255) NOT NULL,
   ingressoData VARCHAR(255) NOT NULL,
   compraData VARCHAR(255) NOT NULL,
+  qtdIngresso	INTEGET NOT NULL,
+  numSala	INTEGER NOT NULL,
+  pagamento	VARCHAR(255) NOT NULL,
   idCliente_fk INTEGER,
   idFunc_fk INTEGER,
   FOREIGN KEY (idCliente_fk) REFERENCES Clientes(idCliente),
@@ -70,4 +73,17 @@ CREATE TABLE Vendas(
   FOREIGN KEY (idFunc_fk) REFERENCES Funcionarios(idFunc),
   FOREIGN KEY (idIngresso_fk) REFERENCES Ingressos(idIngresso)
   );
+
+INSERT INTO Filmes(titulo,duracao,refe)
+VALUES('Uma segunda chance para amar','80 min','/img/Uma-segunda.jpg'),
+		('Carcereiros','90 min','/img/Carcereiros.jpg'),
+		('Coringa','100 min','/img/coringa.jpg'),
+		('As panteras', '100 min','/img/as-panteras.jpg'),
+		('Parasita','95 min','/img/parasita.jpg');
+
+INSERT INTO Sessaos(preco,horario,nome_filme,numSala,data)
+VALUES(14.00,'12:30','Coringa',3,'10/12/2019'),
+		(14.00,'17:00','Uma segunda chance para amar',3,'09/12/2019'),
+		(14.00,'13:50','Carcereiros',2,'09/12/2019'),
+		(14.00,'19:30','As panteras',1,'19/12/2019');
   
