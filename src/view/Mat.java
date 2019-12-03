@@ -98,6 +98,7 @@ public class Mat extends JFrame {
 						String endefunc = JOptionPane.showInputDialog(null,"Digita o seu endereço: ");
 						String telefunc = JOptionPane.showInputDialog(null,"Digita o seu telefone: ");
 						func.adicionar(new Funcionario(nomefunc,endefunc,telefunc));
+						
 
 					}
 				}

@@ -139,6 +139,7 @@ public class Sessoe extends JFrame {
 							precoM = preco*cont;
 						}
 						Vender ven = new Vender(resu,cont,precoM,nomeSes,sala,data,nomeFilme,estudante);
+						ven.setLocationRelativeTo(null);
 						ven.setVisible(true);
 						dispose();
 					}else {

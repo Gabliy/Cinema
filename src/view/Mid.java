@@ -5,10 +5,13 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import DAO.Conexao;
+import DAO.SessaoDAO;
+import model.Sessao;
 
 import javax.swing.JTable;
 import javax.swing.JButton;
@@ -50,6 +53,7 @@ public class Mid extends JFrame {
 	 * Create the frame.
 	 */
 	public Mid(String nomeFilme, String duracao, String ref) {
+		SessaoDAO sda = new SessaoDAO();
 		Conexao con = new Conexao();
 		this.conexao = con.getConexao();
 		setTitle(nomeFilme);
@@ -110,6 +114,26 @@ public class Mid extends JFrame {
 				lblSesses.setBounds(37, 273, 80, 34);
 				contentPane.add(lblSesses);
 				lblSesses.setFont(new Font("Arial", Font.BOLD, 15));
+				
+				JButton btnNewButton = new JButton("Adicionar Sessão");
+				btnNewButton.setFont(new Font("Arial", Font.BOLD, 16));
+				btnNewButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent ae) {
+						float preAd = Float.parseFloat(JOptionPane.showInputDialog(null,"Digite o preço: "));
+						String horas = JOptionPane.showInputDialog(null,"Digite o horario da sessão(hh:mm): ");
+						String datas = JOptionPane.showInputDialog(null,"Digite a data: ");
+
+						int nume = Integer.parseInt(JOptionPane.showInputDialog(null,"Digite o número da sala: "));
+						sda.adicionar(new Sessao(preAd,horas,datas,nomeFilme,nume));
+						
+						Mid mi = new Mid(nomeFilme,duracao,ref);
+						mi.setLocationRelativeTo(null);
+						mi.setVisible(true);
+						dispose();
+					}
+				});
+				btnNewButton.setBounds(447, 308, 195, 97);
+				contentPane.add(btnNewButton);
 		
 		try {
 			PreparedStatement stmt = conexao.prepareStatement(sql);
@@ -126,6 +150,7 @@ public class Mid extends JFrame {
 					btnSessao[c].addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							Sessoe ses = new Sessoe(nomeSes,sala,data,nomeFilme);
+							ses.setLocationRelativeTo(null);
 							ses.setVisible(true);
 						}
 					});

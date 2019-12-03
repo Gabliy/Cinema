@@ -1,80 +1,73 @@
-CREATE DATABASE CinemasDB;
-CREATE TABLE Cinema(
+CREATE TABLE Cinemas(
   idCinema SERIAL PRIMARY KEY,
-  nome VARCHAR(255) NOT NULL,
-  qntdSala INTEGER NOT NULL
+  capacidade INTEGER NOT NULL,
+  localizacao VARCHAR(255) NOT NULL
   );
-CREATE TABLE Sala(
+CREATE TABLE Salas(
   idSala SERIAL PRIMARY KEY,
   numSala INTEGER NOT NULL,
-  qntdCadeira INTEGER NOT NULL,
-  idCinema_fk SERIAL,
-  FOREIGN KEY (idCinema_fk) REFERENCES Cinema(idCinema)
+  qtdCadeira INTEGER NOT NULL,
+  idCinema_fk INTEGER,
+  FOREIGN KEY (idCinema_fk) REFERENCES Cinemas(idCinema)
   );
-CREATE TABLE Filme(
+CREATE TABLE Filmes(
   idFilme SERIAL PRIMARY KEY,
-  nome VARCHAR(255) NOT NULL,
-  duracaoMin INTEGER NOT NULL
+  titulo VARCHAR(255) NOT NULL,
+  duracao VARCHAR(255) NOT NULL,
+  refe 	VARCHAR(255) NOT NULL
   );
-CREATE TABLE Sessao(
+CREATE TABLE Sessaos(
   idSessao SERIAL PRIMARY KEY,
   preco FLOAT NOT NULL,
-  normaL BOOLEAN NOT NULL,
-  horas INTEGER NOT NULL,
-  minuros INTEGER NOT NULL,
+  horario varchar(255) NOT NULL,
   nome_filme VARCHAR(255) NOT NULL,
   numSala INTEGER NOT NULL,
-  ingressoDisp INTEGER NOT NULL,
-  coluna INTEGER NOT NULL,
-  fileira INTEGER NOT NULL,
-  dias INTEGER[] NOT NULL,
-  mes INTEGER NOT NULL,
-  idFilme_fk SERIAL,
+  data	VARCHAR(255) NOT NULL,
+  idFilme_fk INTEGER,
   idSala_fk INTEGER,
-  FOREIGN KEY (idSala_fk) REFERENCES Sala(idSala),
-  FOREIGN KEY (idFilme_fk) REFERENCES Filme(idFilme)
+  FOREIGN KEY (idSala_fk) REFERENCES Salas(idSala),
+  FOREIGN KEY (idFilme_fk) REFERENCES Filmes(idFilme)
   );
-CREATE TABLE Funcionario(
-  idFuncionario SERIAL PRIMARY KEY,
+CREATE TABLE Funcionarios(
+  idFunc SERIAL PRIMARY KEY,
   nome VARCHAR(255) NOT NULL,
   endereco VARCHAR(255) NOT NULL,
   telefone VARCHAR(255) NOT NULL,
-  idCinema_fk SERIAL,
-  FOREIGN KEY (idCinema_fk) REFERENCES Cinema(idCinema)
+  idCinema_fk INTEGER,
+  FOREIGN KEY (idCinema_fk) REFERENCES Cinemas(idCinema)
   );
-CREATE TABLE Cliente(
+CREATE TABLE Clientes(
   idCliente SERIAL PRIMARY KEY,
+  cpf	VARCHAR(255) NOT NULL,
   nome VARCHAR(255) NOT NULL,
   endereco VARCHAR(255) NOT NULL,
-  telefone VARCHAR(255) NOT NULL,
-  estudante BOOLEAN NOT NULL
+  telefone VARCHAR(255) NOT NULL
   );
-CREATE TABLE Ingresso(
+CREATE TABLE Ingressos(
   idIngresso SERIAL PRIMARY KEY,
   preco FLOAT NOT NULL,
-  tipo BOOLEAN NOT NULL,
-  coluna INTEGER NOT NULL,
-  fileira VARCHAR(1) NOT NULL,
+  estudante BOOLEAN NOT NULL,
+  colfil VARCHAR(255) NOT NULL,
   filme VARCHAR(255) NOT NULL,
   sessao VARCHAR(255) NOT NULL,
-  ingressoData DATE NOT NULL,
-  compraData DATE NOT NULL,
-  idCliente_fk SERIAL,
-  idFuncionario_fk SERIAL,
-  FOREIGN KEY (idCliente_fk) REFERENCES Cliente(idCliEnte),
-  FOREIGN KEY (idFuncionario_fk) REFERENCES Funcionario(idFuncionario)
+  ingressoData VARCHAR(255) NOT NULL,
+  compraData VARCHAR(255) NOT NULL,
+  idCliente_fk INTEGER,
+  idFunc_fk INTEGER,
+  FOREIGN KEY (idCliente_fk) REFERENCES Clientes(idCliente),
+  FOREIGN KEY (idFunc_fk) REFERENCES Funcionarios(idFunc)
   );
-CREATE TABLE Venda(
+CREATE TABLE Vendas(
   idVenda SERIAL PRIMARY KEY,
   preco FLOAT NOT NULL,
-  tipo BOOLEAN NOT NULL,
-  ingressoData DATE NOT NULL,
-  compraData DATE NOT NULL,
-  idCliente_fk SERIAL,
-  idFuncionario_fk SERIAL,
-  idIngresso_fk SERIAL,
-  FOREIGN KEY (idCliente_fk) REFERENCES Cliente(idCliente),
-  FOREIGN KEY (idFuncionario_fk) REFERENCES Funcionario(idFuncionario),
-  FOREIGN KEY (idIngresso_fk) REFERENCES Ingresso(idIngresso)
+  estudante BOOLEAN NOT NULL,
+  ingressoData VARCHAR(255) NOT NULL,
+  compraData VARCHAR(255) NOT NULL,
+  idCliente_fk INTEGER,
+  idFunc_fk INTEGER,
+  idIngresso_fk INTEGER,
+  FOREIGN KEY (idCliente_fk) REFERENCES Clientes(idCliente),
+  FOREIGN KEY (idFunc_fk) REFERENCES Funcionarios(idFunc),
+  FOREIGN KEY (idIngresso_fk) REFERENCES Ingressos(idIngresso)
   );
   

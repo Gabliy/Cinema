@@ -1,10 +1,13 @@
 package view;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import DAO.Conexao;
+import DAO.FilmeDAO;
+import model.Filme;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -33,6 +36,7 @@ public class FilmeView extends JFrame {
 
     public FilmeView() 
     {
+    	FilmeDAO fil = new FilmeDAO();
     	Conexao con = new Conexao();
 		this.conexao = con.getConexao();
 		setTitle("Filmes");
@@ -80,6 +84,7 @@ public class FilmeView extends JFrame {
 				btnTeste[c].addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 								Mid jan = new Mid(nome,duracao,refe);
+								jan.setLocationRelativeTo(null);
 								jan.setVisible(true);		
 					}
 				});
@@ -99,6 +104,19 @@ public class FilmeView extends JFrame {
         
         JButton btnAdicionarFilme = new JButton("Adicionar Filme");
         btnAdicionarFilme.setBounds(18, 287, 126, 41);
+        btnAdicionarFilme.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent ae) {
+        		String url = JOptionPane.showInputDialog(null,"Digite a url(tipo: '/img/nomeDoFilme.jpg') da thumbnail do filme(recomendado baixar a foto e coloca-la no pacote img do projeto)");
+        		String titulo = JOptionPane.showInputDialog(null,"Digite o título do filme: ");
+        		String temp = JOptionPane.showInputDialog(null,"Digite a duração do filme: ");
+        		fil.adicionar(new Filme(url,titulo,temp));
+        		
+        		//Tentativa de atualização
+        		FilmeView nha = new FilmeView();
+				nha.setVisible(true);
+				dispose();
+        	}
+        });
         contentPane.add(btnAdicionarFilme);
 
         pack();

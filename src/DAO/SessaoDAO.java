@@ -31,7 +31,7 @@ public class SessaoDAO {
 			stmt.setString(2,Sessao.getHorario());
 			stmt.setString(3,Sessao.getData());
 			stmt.setString(4,Sessao.getNome_filme());
-			stmt.setString(5,Sessao.getNumSala());
+			stmt.setInt(5,Sessao.getNumSala());
 
 			// executa
 			stmt.execute();
@@ -53,7 +53,7 @@ public class SessaoDAO {
 			stmt.setString(2,Sessao.getHorario());
 			stmt.setString(3,Sessao.getData());
 			stmt.setString(4,Sessao.getNome_filme());
-			stmt.setString(5,Sessao.getNumSala());
+			stmt.setInt(5,Sessao.getNumSala());
 			stmt.setInt(6, Sessao.getIdSessao());
 
 			System.out.println(stmt);

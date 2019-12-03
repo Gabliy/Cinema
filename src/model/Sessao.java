@@ -2,10 +2,10 @@ package model;
 
 
 public class Sessao {
-	private int idSessao;
+	private int idSessao,numSala;
 	private float preco;
-	private String horario,data,nome_filme,numSala;
-	public Sessao(float preco, String horario, String data, String nome_filme, String numSala) {
+	private String horario,data,nome_filme;
+	public Sessao(float preco, String horario, String data, String nome_filme, int numSala) {
 		super();
 		this.preco = preco;
 		this.horario = horario;
@@ -28,7 +28,7 @@ public class Sessao {
 	public String getNome_filme() {
 		return nome_filme;
 	}
-	public String getNumSala() {
+	public int getNumSala() {
 		return numSala;
 	}
 	
