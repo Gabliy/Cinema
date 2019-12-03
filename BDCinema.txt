@@ -52,7 +52,7 @@ CREATE TABLE Ingressos(
   sessao VARCHAR(255) NOT NULL,
   ingressoData VARCHAR(255) NOT NULL,
   compraData VARCHAR(255) NOT NULL,
-  qtdIngresso	INTEGET NOT NULL,
+  qtdIngresso	INTEGER NOT NULL,
   numSala	INTEGER NOT NULL,
   pagamento	VARCHAR(255) NOT NULL,
   idCliente_fk INTEGER,

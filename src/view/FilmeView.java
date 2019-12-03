@@ -67,6 +67,7 @@ public class FilmeView extends JFrame {
         scroll.setPreferredSize(new Dimension(630, 247));
 
         JPanel panel = new JPanel();
+        panel.setBackground(new Color(245, 222, 179));
         panel.setLayout(new GridLayout(0, i,10, 10));
 
         JButton[] btnTeste = new JButton[i];
