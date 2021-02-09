@@ -11,10 +11,16 @@ CREATE TABLE Salas(
   FOREIGN KEY (idCinema_fk) REFERENCES Cinemas(idCinema)
   );
 CREATE TABLE Filmes(
-  idFilme SERIAL PRIMARY KEY,
-  titulo VARCHAR(255) NOT NULL,
-  duracao VARCHAR(255) NOT NULL,
-  refe 	VARCHAR(255) NOT NULL
+  cod_filme int NOT NULL,
+    titulo varchar (100) NOT NULL,
+    avaliacao varchar (220),
+    genero varchar (50),
+    tipo varchar (10),
+    classificacao text,
+    ano_lancamento text,
+    direcao varchar (40),
+    PRIMARY KEY (cod_filme)
+);
   );
 CREATE TABLE Sessaos(
   idSessao SERIAL PRIMARY KEY,
